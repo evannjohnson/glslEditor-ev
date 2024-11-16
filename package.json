@@ -5,7 +5,8 @@
   "main": "src/main.js",
   "scripts": {
     "dev:vite": "vite src/",
-    "build": "gulp",
+    "build": "gulp build",
+    "build-watch": "gulp",
     "dev": "gulp electron",
     "start": "electron .",
     "package-local": "electron-packager . --out ./build --overwrite",
