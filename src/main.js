@@ -1,12 +1,6 @@
-const electron = require('electron');
-// Module to control application life.
-const app = electron.app;
-const BrowserWindow = electron.BrowserWindow;
-var Menu = electron.Menu;
-var mainWindow = null;
-
+const { app, BrowserWindow, Menu } = require('electron');
 const path = require('path');
-const url = require('url');
+let mainWindow = null;
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -19,15 +13,16 @@ function createWindow () {
         width: 1000,
         minWidth: 700,
         height: 700,
-        minHeight: 700
+        minHeight: 700,
+        webPreferences: {
+            nodeIntegration: false,
+            contextIsolation: true,
+            preload: path.join(__dirname, 'preload.js')
+        }
     });
     mainWindow.setTitle('GlslEditor');
     // and load the index.html of the app.
-    mainWindow.loadURL(url.format({
-        pathname: path.join(__dirname, '..', 'index.html'),
-        protocol: 'file:',
-        slashes: true
-    }));
+    mainWindow.loadFile(path.join(__dirname, '..', 'index.html'));
 
     // Emitted when the window is closed.
     mainWindow.on('closed', function () {
